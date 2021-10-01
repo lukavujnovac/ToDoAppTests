@@ -8,9 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var taskName: String = ""
+    @State private var tasks = [String]()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack{
+            HStack {
+                TextField("Enter Task", text: $taskName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .accessibilityIdentifier("taskNameTextField")
+                
+                Button("Add") {
+                    self.tasks.append(self.taskName)
+                }.padding(10)
+                    .foregroundColor(.white)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .accessibilityIdentifier("addTaskButton")
+            }
+            
+            List(self.tasks, id: \.self) {name in 
+                Text("\(name)")
+            }
+            
+            Spacer()
+            
+        }.padding()
     }
 }
 
